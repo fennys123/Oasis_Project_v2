@@ -64,6 +64,10 @@ urlpatterns = [
     path('cambiar_clave/', views.cambiar_clave, name="cambiar_clave"),
 
 
+    #RECUPERAR CONTRASEÑA
+    path('recuperar_clave/', views.recuperar_clave, name="recuperar_clave"),
+    path('verificar_recuperar/', views.verificar_recuperar, name="verificar_recuperar"),
+
     #USUARIOS
     path('Gestion_Usuarios/', views.guInicio, name='guInicio'),
     path('Usuarios_Bloqueados/', views.guUsuariosBloqueados, name='guUsuariosBloqueados'),
@@ -139,6 +143,7 @@ urlpatterns = [
 
 #   FRONT PRODUCTOS
     path('front_productos/', views.front_productos, name='front_productos'),
+    path('front_productos_info/<int:id>/', views.front_productos_info, name='front_productos_info'),
 
 #   FRONT EVENTOS
     path('front_eventos/', views.front_eventos, name='front_eventos'),
@@ -180,4 +185,6 @@ urlpatterns = [
 #RESERVAR MESAS
     path("reservar_mesa/<int:id>/", views.reservar_mesa, name="reservar_mesa"),
 
+# mas información
+    path('mas_info/', views.mas_info, name='mas_info'),
 ]   
