@@ -4,49 +4,44 @@
 
 {% block titulo %}Entradas{% endblock %}
 
-{% block Opciones %}
-    <li class="nav-item lateralOpciones2">
-        <a class="nav-link text-white" href="{% url 'ver_perfil' %}">
-          Inicio                    
-        </a>
-    </li>
-    {% if user.rol == 4 %}
-        <li class="nav-item lateralOpciones2">
-            <a class="nav-link text-white" href="{% url 'ver_detalles_pedido_usuario' %}">
-            Pedidos activos                   
-            </a>
-        </li>
-        <li class="nav-item lateralOpciones2">
-            <a class="nav-link text-white" href="{% url 'ver_ventas' %}">
-            Historial de pedidos                   
-            </a>
-        </li>
-        <li class="nav-item lateralOpciones2">
-            <a class="nav-link text-white" href="{% url 'reservas_usuario' %}">
-            Reservas                    
-            </a>
-        </li>
-        <li class="nav-item lateralOpciones2">
-          <a class="nav-link text-white" href="{% url 'entradas_usuario' %}">
-          Entradas
-          </a>
-        </li>
-    {% else %}
-        <li class="nav-item lateralOpciones2">
-            <a class="nav-link text-white" href="{% url 'ver_ventas' %}">
-            Historial de Ventas                   
-            </a>
-        </li>
-    {% endif %}
-{% endblock %}
-
-
 
 {% block contenedor %}
+    <div class="radio-inputs">
+        <label class="radio">
+        <a href="{% url 'ver_perfil' %}">
+            <input type="radio" name="radio" />
+            <span class="name">Inicio</span> 
+        </a>
+        </label>
+        <label class="radio">
+            <a href="{% url 'ver_detalles_pedido_usuario' %}">
+            <input type="radio" name="radio" />
+            <span class="name">Pedidos activos</span>
+            </a>
+        </label>
+        <label class="radio">
+            <a href="{% url 'ver_ventas' %}">
+            <input type="radio" name="radio" />
+            <span class="name">Historial de pedidos</span>
+            </a>
+        </label>
+        <label class="radio">
+            <a href="{% url 'reservas_usuario' %}">
+            <input type="radio" name="radio" />
+            <span class="name">Reservas</span>
+            </a>
+        </label>
+        <label class="radio">
+            <a href="{% url 'entradas_usuario' %}">
+            <input type="radio" name="radio" checked=""/>
+            <span class="name">Entradas</span>
+            </a>
+        </label>
+    </div>
     <h1>Entradas Compradas</h1>
     <div class="bloqueEvento">
         {% if not entrada_info  %}
-            <p class="noDatos">No tienes entradas compradas para ningún evento.</p>
+            <p style="margin-left: 1.5rem ; font-size: 14px;">No tienes entradas compradas para ningún evento.</p>
         {% else %}
             {% for e in entrada_info %}
                 <div class="evento">

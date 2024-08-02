@@ -146,15 +146,12 @@ def ver_perfil(request):
     contexto = {'data': q, 'roles': roles, 'estado':estado, 'user':user}
     return render(request, "Oasis/login/perfil.html", contexto)
 
-def editar_perfil(request):
+def editar_perfil(request, id):
     if request.method == 'POST':
-        id = request.POST.get('id')
         nombre = request.POST.get('nombre')
         fecha_nacimiento = request.POST.get('fechaNacimiento')
         email = request.POST.get('email')
         cedula = request.POST.get('cedula')
-        rol = request.POST.get('rol')
-        estado = request.POST.get('Estado')
         foto_nueva = request.FILES.get('foto_nueva')
 
         try:
@@ -162,9 +159,7 @@ def editar_perfil(request):
             q.nombre = nombre
             q.email = email
             q.fecha_nacimiento = fecha_nacimiento
-            q.rol = rol
             q.cedula = cedula
-            q.estado = estado
             
             if foto_nueva:
                 q.foto = foto_nueva
@@ -180,11 +175,6 @@ def editar_perfil(request):
 
 
 #CAMBIAR CONTRASEÑA
-def cambio_clave_formulario(request):
-    logueo = request.session.get("logueo", False)
-    user = Usuario.objects.get(pk = logueo["id"])
-    contexto = {"user":user}
-    return render(request, "Oasis/login/cambio_clave.html", contexto)
 
 def cambiar_clave(request):
     if request.method == "POST":
@@ -200,8 +190,10 @@ def cambiar_clave(request):
                 #Cambiar clave en DB
                 q.password = hash_password(c1)
                 q.save()
-                messages.success(request, "Contraseña guardada correctamente!")
-                return redirect('ver_perfil')
+                del request.session["logueo"]
+                del request.session["carrito"]
+                messages.success(request, "Contraseña cambiada correctamente!")
+                return redirect("index")
             else:
                messages.info(request, "Las contraseñas nuevas no coinciden...")
         else:
@@ -1593,7 +1585,11 @@ def ver_detalles_usuario(request):
     user = Usuario.objects.get(pk=logueo["id"])
     pedidos = Pedido.objects.filter(usuario=user).order_by('-fecha')
 
-    mesa = Mesa.objects.get(usuario=user.email)
+
+    try:
+        mesa = Mesa.objects.get(usuario=user.email)
+    except Mesa.DoesNotExist:
+        mesa = None
 
     detalles_pedidos = []
     cuenta = 0

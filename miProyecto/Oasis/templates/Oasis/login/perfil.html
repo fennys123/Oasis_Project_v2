@@ -3,43 +3,48 @@
 
 {% block titulo %}Mi Perfil{% endblock %}
 
-{% block Opciones %}
-    <li class="nav-item lateralOpciones2">
-        <a class="nav-link text-white" href="{% url 'ver_perfil' %}">
-          Inicio                    
-        </a>
-    </li>
-    {% if user.rol == 4 %}
-        <li class="nav-item lateralOpciones2">
-            <a class="nav-link text-white" href="{% url 'ver_detalles_pedido_usuario' %}">
-            Pedidos activos                   
-            </a>
-        </li>
-        <li class="nav-item lateralOpciones2">
-            <a class="nav-link text-white" href="{% url 'ver_ventas' %}">
-            Historial de pedidos                   
-            </a>
-        </li>
-        <li class="nav-item lateralOpciones2">
-            <a class="nav-link text-white" href="{% url 'reservas_usuario' %}">
-            Reservas                    
-            </a>
-        </li>
-        <li class="nav-item lateralOpciones2">
-          <a class="nav-link text-white" href="{% url 'entradas_usuario' %}">
-          Entradas
-          </a>
-        </li>
-    {% else %}
-        <li class="nav-item lateralOpciones2">
-            <a class="nav-link text-white" href="{% url 'ver_ventas' %}">
-            Historial de Ventas                   
-            </a>
-        </li>
-    {% endif %}
-{% endblock %}
-
 {% block contenedor %}
+  <div class="radio-inputs">
+    <label class="radio">
+      <a href="{% url 'ver_perfil' %}">
+        <input type="radio" name="radio" checked="" />
+        <span class="name">Inicio</span> 
+      </a>
+    </label>
+    {% if user.rol == 4 %}
+      <label class="radio">
+        <a href="{% url 'ver_detalles_pedido_usuario' %}">
+          <input type="radio" name="radio" />
+          <span class="name">Pedidos activos</span>
+        </a>
+      </label>
+      <label class="radio">
+        <a href="{% url 'ver_ventas' %}">
+          <input type="radio" name="radio" />
+          <span class="name">Historial de pedidos</span>
+        </a>
+      </label>
+      <label class="radio">
+        <a href="{% url 'reservas_usuario' %}">
+          <input type="radio" name="radio" />
+          <span class="name">Reservas</span>
+        </a>
+      </label>
+      <label class="radio">
+        <a href="{% url 'entradas_usuario' %}">
+          <input type="radio" name="radio" />
+          <span class="name">Entradas</span>
+        </a>
+      </label>
+    {% else %}
+      <label class="radio">
+        <a href="{% url 'ver_ventas' %}">
+          <input type="radio" name="radio" />
+          <span class="name">Historial de Ventas</span>
+        </a>
+      </label>
+    {% endif %}
+  </div>
     <div class="card mb-3 mt-5 w-100 ml-0 mr-0 mx-auto" style="max-width: 540px; margin-top: 2.5em;">
     <div class="row g-0">
       <div class="col-md-4">
@@ -58,85 +63,92 @@
         </div>
         <div class="card-body">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-left: 3%; margin-right: 3%;">
-                <a class="card-link" href="{% url 'cc_formulario' %}">Cambiar contraseña</a>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editarPerfil"><i class="bi bi-pencil"></i></button>
+                <a class="card-link" data-toggle="modal" data-target="#cambiarContrasena">Cambiar contraseña</a>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#editarPerfil"><i class="bi bi-pencil"></i></button>
             </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="modal fade" id="editarPerfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Perfil</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="{% url 'editar_perfil' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+
+
+  <div class="modal fade" id="editarPerfil" tabindex="-1" role="dialog" aria-labelledby="editarPerfilLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="tituloFormulario">Editar perfil</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
-                <input type="hidden" name="id" value="{{ data.id }}">
-                <div class="mb-2d-flex flex-row justify-content-between align-items-center">
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" value="{{ data.nombre }}">
+                <form class="formulario" action="{% url 'editar_perfil' data.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="flex">
+                        <label>
+                            <input required="true" type="text" class="input" name="nombre" value="{{ data.nombre }}">
+                            <span>Nombre</span>
+                        </label>
+                        <label>
+                            <input required="true" type="number" class="input" name="cedula" value="{{ data.cedula }}">
+                            <span>Cédula</span>
+                        </label>
+                    </div> 
+                    <label>
+                        <input required="true" type="email" class="input" name="email" value="{{ data.email }}">
+                        <span>Email</span>
+                    </label>  
+                    <label>
+                      <input required="true" type="date" class="input" name="fechaNacimiento" value="{{ data.fecha_nacimiento|date:'Y-m-d' }}">
+                      <span>Fecha de nacimiento</span>
+                    </label> 
+                    <div class="mb-3 mt-2 file-input">
+                        <span>Cambiar foto de perfil</span>
+                        <input class="form-control" type="file" id="formFile" name="foto_nueva" value="{{ data.foto.url }}">
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Cedula</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" name="cedula" value="{{ data.cedula }}" readonly>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput2" name="email" value="{{ data.email }}">
-                </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Rol</label>
-                    <select class="form-control" name="rol">
-                      <option value="">Seleccione</option>
-                        {% for rol_value, rol_nombre in roles %}
-                          <option value="{{ rol_value }}" {% if data.rol == rol_value %}selected{% endif %}>{{ rol_nombre }}</option>
-                        {% endfor %}
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Estado</label>
-                    <select class="form-control" name="Estado">
-                      <option value="">Seleccione</option>
-                        {% for estado_value, estado_nombre in estado %}
-                        <option value="{{ estado_value }}" {% if data.estado == estado_value %}selected{% endif %}>{{ estado_nombre }}</option>
-                        {% endfor %}
-                    </select>
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">fecha de Nacimiento</label>
-                    <input type="date" class="form-control" id="exampleFormControlInput1" name="fechaNacimiento" value="{{ data.fecha_nacimiento|date:'Y-m-d' }}">
-                  </div>
-                  <div class="mb-3">
-                      <label for="exampleFormControlInput1" class="form-label">Foto Actual</label>
-                      {% if data.foto %}
-                          <input type="text" class="form-control" value="{{ data.foto.url }}" name="foto_actual" readonly>
-                          <div class="card" style="width: 18rem;">
-                            {% load static %}
-                              <img src="{{ data.foto.url }}" class="card-img-top" alt="foto_producto" style="max-height: 300px;">
-                          </div>
-                      {% else %}
-                          <p>No hay imagen asociada</p>
-                      {% endif %}
-                  </div>
-                  <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Actualizar Foto</label>
-                    <input type="file" class="form-control" id="exampleFormControlInput1" name="foto_nueva">
-                </div>
+                  <button class="btn btn-success mb-2 mt-2" type="submit">Editar Perfil</button>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-success">Guardar cambios</button>
-            </div>
-        </form>
-
-      </div>
+        </div>
     </div>
   </div>
+
+
+
+
+  <div class="modal fade" id="cambiarContrasena" tabindex="-1" role="dialog" aria-labelledby="cambiarContrasenaLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="tituloFormulario">Cambiar contraseña</p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="formulario" action="{% url 'cambiar_clave' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label>
+                        <input required="true" type="password" class="input" name="clave">
+                        <span>Contraseña actual</span>
+                    </label>
+                    <label>
+                        <input required="true" type="password" class="input" name="nueva1">
+                        <span>Contraseña nueva</span>
+                    </label>
+                    <label>
+                        <input required="true" type="password" class="input" name="nueva2">
+                        <span>Repetir contraseña</span>
+                    </label>  
+                  <button class="btn btn-success mb-2 mt-2" type="submit">Cambiar contraseña</button>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+  
 {% endblock %}

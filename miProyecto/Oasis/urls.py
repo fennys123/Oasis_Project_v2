@@ -51,7 +51,7 @@ urlpatterns = [
 
     #PERFIL
     path('Perfil/', views.ver_perfil, name='ver_perfil'),
-    path('editar_perfil', views.editar_perfil, name='editar_perfil'),
+    path('editar_perfil/<int:id>/', views.editar_perfil, name='editar_perfil'),
     path('entradas/', views.entradas_usuario, name='entradas_usuario'),
     path('entradas_info/<int:id>/', views.entradas_usuario_info, name='entrada_info'),
     path('reservas/', views.reservas_usuario, name='reservas_usuario'),
@@ -60,7 +60,6 @@ urlpatterns = [
 
 
     #CAMBIAR CONTRASEÑA
-    path('cc_formulario/', views.cambio_clave_formulario, name="cc_formulario"),
     path('cambiar_clave/', views.cambiar_clave, name="cambiar_clave"),
 
 
@@ -171,7 +170,7 @@ urlpatterns = [
 
 #VENTAS
 	path("crear_venta/", views.crear_venta, name="crear_venta"),
-	path("ver_ventas/", views.ver_pedidos_usuario, name="ver_ventas"),
+	path("historial_pedidos/", views.ver_pedidos_usuario, name="ver_ventas"),
 	path("ver_detalles_pedido_usuario/", views.ver_detalles_usuario, name="ver_detalles_pedido_usuario"),
 
 #COMPRAR ENTRADAS
