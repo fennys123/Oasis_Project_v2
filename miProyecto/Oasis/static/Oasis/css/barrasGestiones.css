@@ -1,12 +1,12 @@
 .radio-inputs {
   display: flex;
   border-radius: 0.5rem;
-  background-color: #fff3f5;
+  background-color: #f2e5fc;
   box-sizing: border-box;
   font-size: 14px;
-  width: 98%;
+  width: 100%;
   padding: 0.5rem 1rem 0 1rem;
-  margin: 0rem 1rem 2rem 1rem;
+  margin: 0rem 0rem 2rem 0rem;
 }
 
 .radio-inputs .radio {
@@ -41,7 +41,7 @@
   font-weight: 600;
 }
 .radio-inputs .radio input + .name:hover {
-  color: #fc4664;
+  color: #000;
   font-weight: 600;
 }
 .radio-inputs .radio input:checked + .name:hover {
@@ -54,7 +54,7 @@
   position: absolute;
   width: 10px;
   height: 10px;
-  background-color: #fff3f5;
+  background-color: #f2e5fc;
   bottom: 0;
 }
 
@@ -74,7 +74,6 @@
 
 
   .main_container h1{
-      margin-left: 0.5em;
       font-family: Nunito;
       font-weight: 400;
       color: #000;
@@ -83,12 +82,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 97%;
-      margin-left: 1.3em;
-      margin-right: 1.3em;
+      width: 100%;
   }
   .Agregar{
-    margin-left: 1.3em;
     margin-top: 1.5em;
     margin-bottom: 1.5em;
     font-family: Nunito;
@@ -164,4 +160,40 @@
   @font-face {
     font-family: Nunito;
     src: url('../fonts/Nunito-Medium.ttf') format('woff');
+  }
+
+
+  @media (max-width: 920px) {
+    .Contenido{
+      display: flexbox;
+      flex-direction: column;
+      width: 97%;
+      justify-content: space-around;
+      align-items: flex-start;
+      gap: 1em;
+    }
+
+    .search{
+      display: flex;
+      width: 100%;
+      justify-content: end;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .Contenido{
+      gap: 1em;
+    }
+    .conteos {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .conteos p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .conteos .divider {
+      display: none;
+    }
   }

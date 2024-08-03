@@ -118,59 +118,59 @@
     <div class="wrapper collapsar">
   
         <div class="top_navbar">
-          <div class="hamburger">
-             <div class="one"></div>
-             <div class="two"></div>
-             <div class="three"></div>
-          </div>
-          <div class="top_menu">
-            <div class="logo">
-               <a href="{% url 'index' %}"><img src="{% static 'Oasis/img/logoOasisNegro.png' %}" alt="logoOasisNegro" width="200px"></a>
+            <div class="hamburger">
+              <div class="one"></div>
+              <div class="two"></div>
+              <div class="three"></div>
             </div>
-            <ul class="items-barra">
+            <div class="top_menu">
+              <div class="logo">
+                <a href="{% url 'index' %}"><img src="{% static 'Oasis/img/logoOasisNegro.png' %}" alt="logoOasisNegro" width="200px"></a>
+              </div>
+              <ul class="items-barra">
                 <a href="{% url 'ver_perfil' %}">
-                    {% if user.foto %}
-                        <img src="{{ user.foto.url }}" alt="FotoUsuario" width="45px" height="45px"  class="rounded-circle">
-                    {% else %}
-                        <img src="{% static 'Oasis/img/logoUser.png' %}" alt="LogoUsuario" width="45px" height="45px">
-                    {% endif %}
+                  {% if user.foto %}
+                    <img src="{{ user.foto.url }}" alt="FotoUsuario" width="45px" height="45px" class="rounded-circle">
+                  {% else %}
+                    <img src="{% static 'Oasis/img/logoUser.png' %}" alt="LogoUsuario" width="45px" height="45px">
+                  {% endif %}
                 </a> 
-            </ul>
+              </ul>
+            </div>
           </div>
-        </div>
-        
-        <div class="sidebar">
+          
+          <div class="sidebar">
             <ul class="items-barra">
               <li><a href="{% url 'guInicio' %}" {% if url == 'Gestion_Usuarios' or url == 'Usuarios_Bloqueados' %} class="active" {% endif %}>
                 <span class="icon"><i class="fas fa-users"></i></span>
                 <span class="title">Usuarios</span>
-                </a></li>
+              </a></li>
               <li><a href="{% url 'Productos' %}">
                 <span class="icon"><i class="fas fa-boxes"></i></span>
                 <span class="title">Inventario</span>
-                </a></li>
+              </a></li>
               <li><a href="{% url 'Mesas'%}">
                 <span class="icon"><i class="fas fa-chair"></i></span>
                 <span class="title">Mesas</span>
-                </a></li>
+              </a></li>
               <li><a href="{% url 'peInicio' %}">
                 <span class="icon"><i class="fas fa-concierge-bell"></i></span>
                 <span class="title">Pedidos</span>
-                </a></li>
+              </a></li>
               <li><a href="{% url 'Eventos' %}">
                 <span class="icon"><i class="fas fa-calendar"></i></span>
                 <span class="title">Eventos</span>
-                </a></li>
+              </a></li>
               <li><a href="{% url 'Menu' %}">
                 <span class="icon"><i class="fas fa-clipboard-list"></i></span>
                 <span class="title">Menú</span>
-                </a></li>
+              </a></li>
               <li><a href="{% url 'gaInicio' %}">
                 <span class="icon"><i class="fas fa-images"></i></span>
                 <span class="title">Galería</span>
-                </a></li>
-          </ul>
-        </div>
+              </a></li>
+            </ul>
+          </div>
         
         <div class="main_container">
             {% if messages %}
@@ -193,6 +193,7 @@
     <script src="{% static 'Oasis/js/navbarAdmin.js' %}"></script>
 
     <script>
+
         $(document).ready(function () {
             if ($.fn.dataTable.isDataTable('#table')) {
             $('#table').DataTable().clear().destroy();

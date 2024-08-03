@@ -1,6 +1,6 @@
 .modal-header .tituloFormulario {
     font-family: Nunito;
-    color: #fc4664;
+    color: #aa46fc;
     font-size: 28px;
     font-weight: 600;
     letter-spacing: -1px;
@@ -20,13 +20,13 @@
     width: 16px;
     border-radius: 50%;
     left: 0px;
-    background-color: #fc4664;
+    background-color: #aa46fc;
 }
 
 .modal-header .tituloFormulario::before {
     width: 18px;
     height: 18px;
-    background-color: #fc4664;
+    background-color: #aa46fc;
 }
 
 .modal-header .tituloFormulario::after {
